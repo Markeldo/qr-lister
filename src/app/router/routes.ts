@@ -1,10 +1,48 @@
+import { Scopes } from 'src/entities/userScope';
 import { RouteRecordRaw } from 'vue-router';
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    scopes?: Scopes[];
+    title?: string;
+  }
+}
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('pages/layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    children: [
+      {
+        name: 'main',
+        path: '',
+        component: () => import('pages/IndexPage.vue'),
+        meta: {
+          scopes: ['IS_LOGGED_IN'],
+          redirectTo: { name: 'login' },
+          title: 'Главная',
+        },
+      },
+      {
+        name: 'profile',
+        path: 'profile',
+        component: () => import('pages/ProfilePage.vue'),
+        meta: {
+          scopes: ['IS_LOGGED_IN'],
+          title: 'Профиль',
+        },
+      },
+    ],
+  },
+  // No Layout Pages
+  {
+    name: 'login',
+    path: '/login',
+    component: () => import('pages/LoginPage.vue'),
+    meta: {
+      scopes: ['IS_NOT_LOGGED_IN'],
+      redirectTo: { name: 'main' },
+    },
   },
 
   // Always leave this as last one,
