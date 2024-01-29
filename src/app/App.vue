@@ -3,12 +3,12 @@
 </template>
 
 <script setup lang="ts">
-import { Session } from '@supabase/supabase-js';
 import { onMounted, ref, watch } from 'vue';
-import { supabase } from './boot/supabase';
-import { useUserScopeStore } from 'src/entities/userScope';
-import { useUserStore } from 'src/entities/user';
 import { storeToRefs } from 'pinia';
+import { useUserStore } from 'src/entities/user';
+import { useUserScopeStore } from 'src/entities/userScope';
+import { Session } from '@supabase/supabase-js';
+import { supabase } from './boot/supabase';
 
 const authStateChanged = ref<Session | null>(null);
 

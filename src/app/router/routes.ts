@@ -1,5 +1,5 @@
-import { Scopes } from 'src/entities/userScope';
 import { RouteRecordRaw } from 'vue-router';
+import { Scopes } from 'src/entities/userScope';
 
 declare module 'vue-router' {
   interface RouteMeta {
