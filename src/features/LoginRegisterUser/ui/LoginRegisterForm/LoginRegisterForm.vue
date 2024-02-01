@@ -92,11 +92,12 @@ const onClick = async () => {
     } else {
       await userRegister(formData);
     }
-    if (userStore.isCurrentUserFullfilled) {
-      router.push({ path: '/' });
-    } else {
+    // TODO: Сделать страницу заполнения профиля
+    // if (userStore.isCurrentUserFullfilled) {
+    router.push({ path: '/' });
+    /*} else {
       router.push({ path: '/empty-profile' });
-    }
+    }*/
   } catch (error) {
     console.log(error);
   }

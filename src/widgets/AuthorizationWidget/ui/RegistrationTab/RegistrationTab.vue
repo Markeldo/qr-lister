@@ -16,7 +16,7 @@ import { tabTypes } from 'src/shared/constants';
 import { TabType } from 'src/shared/types';
 
 defineProps<{
-  panel: tabTypes;
-  switchTab: (switchTo: tabTypes) => void;
+  panel: TabType;
+  switchTab: (switchTo: TabType) => void;
 }>();
 </script>

@@ -11,25 +11,15 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          QR Linker
-        </q-toolbar-title>
+        <q-toolbar-title> QR Linker </q-toolbar-title>
 
-        <div>Boom</div>
+        <div>{{ userStore.user.nickname }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        <q-item-label header> Essential Links </q-item-label>
       </q-list>
     </q-drawer>
 
@@ -41,10 +31,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useUserStore } from 'src/entities/user';
 
-const leftDrawerOpen = ref(false)
+const userStore = useUserStore();
+
+const leftDrawerOpen = ref(false);
 
 function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value
+  leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>

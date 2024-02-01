@@ -2,13 +2,7 @@ import { computed, ref } from 'vue';
 import { Notify } from 'quasar';
 import { defineStore } from 'pinia';
 import { supabase } from 'src/app/boot/supabase';
-import {
-  IManagerOfTeam,
-  IMemberOfTeam,
-  IRegisterFormData,
-  IUserGetDataFunction,
-  IUserStore,
-} from './types';
+import { IUserGetDataFunction, IUserStore, RegisterPayloadData } from './types';
 
 const initialUserState: IUserStore = {
   id: '',
@@ -17,8 +11,6 @@ const initialUserState: IUserStore = {
 export const useUserStore = defineStore('user', () => {
   // state
   const userStore = ref<IUserStore>(initialUserState);
-  const memberOfTeamsStore = ref<IMemberOfTeam[]>([]);
-  const managerOfTeamsStore = ref<IManagerOfTeam[]>([]);
   const isLoading = ref(false);
   const isDataFetched = ref(false);
 
@@ -44,12 +36,6 @@ export const useUserStore = defineStore('user', () => {
       ? `${userStore.value.surname} ${userStore.value.name}`
       : userStore.value.nickname
   );
-  const usersTeams = computed(() =>
-    memberOfTeamsStore.value.map((item) => item.team)
-  );
-  const managerOfTeams = computed(() =>
-    managerOfTeamsStore.value.map((item) => item.team)
-  );
 
   //actions
   const userGetData: IUserGetDataFunction = async (
@@ -66,12 +52,9 @@ export const useUserStore = defineStore('user', () => {
     }
     const currentUserUID = authData.user?.id;
 
-    const {
-      data: { team_members, team_managers, ...data },
-      error,
-    } = await supabase
+    const { data, error } = await supabase
       .from('profile')
-      .select('*, team_members (*, team (*)), team_managers (*, team (*))')
+      .select('*')
       .eq('id', currentUserUID)
       .single();
 
@@ -83,21 +66,8 @@ export const useUserStore = defineStore('user', () => {
       ...userStore.value,
       ...data,
     };
-    memberOfTeamsStore.value = team_members;
-    managerOfTeamsStore.value = team_managers;
     isLoading.value = false;
     isDataFetched.value = true;
-  };
-
-  const getCurrentUserMembership = async () => {
-    const { data, error } = await supabase
-      .from('team_members')
-      .select('*, team(*)')
-      .eq('user_id', userStore.value.id);
-    if (error) {
-      throw new Error(error.message);
-    }
-    memberOfTeamsStore.value = data;
   };
 
   const userSetData = async (formData: IUserStore) => {
@@ -118,7 +88,11 @@ export const useUserStore = defineStore('user', () => {
     userStore.value = { ...initialUserState }; //{ ...userStore.value, ...initialUserState };
   };
 
-  const userRegister = async ({ name, email, password }: IRegisterFormData) => {
+  const userRegister = async ({
+    name,
+    email,
+    password,
+  }: RegisterPayloadData) => {
     isLoading.value = true;
     const result = await supabase.auth.signUp({
       email,
@@ -146,7 +120,10 @@ export const useUserStore = defineStore('user', () => {
     isLoading.value = false;
   };
 
-  const userLogIn = async ({ email, password }: IRegisterFormData) => {
+  const userLogIn = async ({
+    email,
+    password,
+  }: Omit<RegisterPayloadData, 'name'>) => {
     isLoading.value = true;
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -168,8 +145,6 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     user,
-    usersTeams,
-    managerOfTeams,
     userFullName,
     isCurrentUserFullfilled,
     isLoading,
@@ -180,7 +155,5 @@ export const useUserStore = defineStore('user', () => {
     userRegister,
     userLogIn,
     userLogOut,
-    getCurrentUserMembership,
   };
 });
-
