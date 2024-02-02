@@ -14,7 +14,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useApiPrizeGiveawayCreate } from 'src/entities/prizeGiveaway';
+import {
+  useApiPrizeGiveawayCreate,
+  useUsersPrizeGiveawayStore,
+} from 'src/entities/prizeGiveaway';
 import { useUserStore } from 'src/entities/user';
 import { useAddGiveawayDialog } from '../../model/useAddGiveawayDialog';
 type FormData = {
@@ -23,10 +26,13 @@ type FormData = {
 const formData = ref<FormData>({ name: '' });
 
 const userStore = useUserStore();
+const useGiveawayStore = useUsersPrizeGiveawayStore();
 const { createPrizeGiveaway } = useApiPrizeGiveawayCreate();
 const isDialogOpen = useAddGiveawayDialog();
 
-const onFormSubmit = () => {
-  createPrizeGiveaway({ ...formData.value, user_id: userStore.user.id });
+const onFormSubmit = async () => {
+  await createPrizeGiveaway({ ...formData.value, user_id: userStore.user.id });
+  useGiveawayStore.read({ user_id: userStore.user.id });
+  isDialogOpen.value = false;
 };
 </script>

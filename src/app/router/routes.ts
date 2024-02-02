@@ -32,6 +32,15 @@ const routes: RouteRecordRaw[] = [
           title: 'Профиль',
         },
       },
+      {
+        name: 'prizeGiveaway',
+        path: 'prize-giveaway/:id',
+        component: () => import('pages/PrizeGiveawayPage.vue'),
+        meta: {
+          scopes: ['IS_LOGGED_IN'],
+          title: 'Просмотр розыгрыша',
+        },
+      },
     ],
   },
   // No Layout Pages
