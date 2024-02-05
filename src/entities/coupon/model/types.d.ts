@@ -5,4 +5,5 @@ export type INewCoupon = {
 
 export type ICoupon = INewCoupon & {
   id: string;
+  registered_on: string;
 };

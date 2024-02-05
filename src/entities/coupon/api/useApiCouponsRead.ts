@@ -19,7 +19,7 @@ export const useApiCouponsRead = () => {
 
   const fetch = async ({ giveaway_id }: { giveaway_id: string }) => {
     let query = supabase.from('coupon').select('*');
-    query = query.eq('giveaway_id', giveaway_id);
+    query = query.eq('giveaway_id', giveaway_id).order('sequence_number');
 
     await fetchQuery(query.returns<ICoupon[]>());
     isValid.value = true;

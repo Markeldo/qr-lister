@@ -2,26 +2,45 @@
   <section class="grid-container">
     <b>Список купонов</b>
     <div class="grid">
-      <q-avatar
+      <q-btn
+        flat
+        dense
+        round
         v-for="coupon in coupons"
         :key="coupon.id"
-        color="primary"
-        text-color="white"
-        >{{ coupon.sequence_number }}</q-avatar
+        @click="openCouponCard"
       >
+        <q-avatar
+          :color="coupon.registered_on ? 'green-14' : 'grey-6'"
+          text-color="white"
+        >
+          {{ coupon.sequence_number }}
+        </q-avatar>
+      </q-btn>
     </div>
   </section>
+
+  <q-dialog v-model="openDialog">
+    <CouponCard />
+  </q-dialog>
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+import { ref, watch } from 'vue';
 import { computed } from 'vue';
-import { useCouponsStore } from 'src/entities/coupon';
+import { CouponCard, useCouponsStore } from 'src/entities/coupon';
 
 const props = defineProps<{ giveawayId: string }>();
 const couponsStore = useCouponsStore();
 
+const openDialog = ref(false);
+const couponId = ref<number | undefined>(undefined);
+
 const coupons = computed(() => couponsStore.store.data);
+
+const openCouponCard = () => {
+  openDialog.value = true;
+};
 
 watch(
   () => props.giveawayId,
