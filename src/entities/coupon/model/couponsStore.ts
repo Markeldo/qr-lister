@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
 import { useCachedFunction } from 'src/shared/composables';
-import { useApiPrizeGiveawaysRead } from '../api';
+import { useApiCouponsRead } from '../api';
 
-export const useUsersPrizeGiveawayStore = defineStore('user.giveaways', () => {
-  const { fetch } = useApiPrizeGiveawaysRead();
+export const useCouponsStore = defineStore('user.coupons', () => {
+  const { fetch } = useApiCouponsRead();
   const { execute: memoizedFetch, currentCacheResult: store } =
     useCachedFunction(fetch);
 
-  const read = (payload: { user_id: string }) => {
+  const read = (payload: { giveaway_id: string }) => {
     return memoizedFetch({ ...payload });
   };
 
