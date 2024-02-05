@@ -8,7 +8,7 @@
         round
         v-for="coupon in coupons"
         :key="coupon.id"
-        @click="openCouponCard"
+        @click="openCouponCard(coupon.id)"
       >
         <q-avatar
           :color="coupon.registered_on ? 'green-14' : 'grey-6'"
@@ -20,8 +20,8 @@
     </div>
   </section>
 
-  <q-dialog v-model="openDialog">
-    <CouponCard />
+  <q-dialog v-model="openDialog" v-if="couponId">
+    <CouponCard :couponId="couponId" />
   </q-dialog>
 </template>
 
@@ -34,12 +34,13 @@ const props = defineProps<{ giveawayId: string }>();
 const couponsStore = useCouponsStore();
 
 const openDialog = ref(false);
-const couponId = ref<number | undefined>(undefined);
+const couponId = ref<string | undefined>(undefined);
 
 const coupons = computed(() => couponsStore.store.data);
 
-const openCouponCard = () => {
+const openCouponCard = (id: string) => {
   openDialog.value = true;
+  couponId.value = id;
 };
 
 watch(
