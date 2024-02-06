@@ -23,7 +23,7 @@ const routes: RouteRecordRaw[] = [
           title: 'Главная',
         },
       },
-      {
+      /*{
         name: 'profile',
         path: 'profile',
         component: () => import('pages/ProfilePage.vue'),
@@ -31,11 +31,20 @@ const routes: RouteRecordRaw[] = [
           scopes: ['IS_LOGGED_IN'],
           title: 'Профиль',
         },
-      },
+      },*/
       {
         name: 'prizeGiveaway',
         path: 'prize-giveaway/:id',
         component: () => import('pages/PrizeGiveawayPage.vue'),
+        meta: {
+          scopes: ['IS_LOGGED_IN'],
+          title: 'Просмотр розыгрыша',
+        },
+      },
+      {
+        name: 'printCoupons',
+        path: 'prize-giveaway/:id/print-coupons',
+        component: () => import('pages/PrintCoupons.vue'),
         meta: {
           scopes: ['IS_LOGGED_IN'],
           title: 'Просмотр розыгрыша',

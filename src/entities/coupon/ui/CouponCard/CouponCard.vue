@@ -1,19 +1,20 @@
 <template>
   <section>
-    <q-card>
+    <q-card bordered flat class="coupon">
       <q-card-section horizontal>
         <q-card-section>
-          <img :src="dataUrlWithQRCode" />
+          <img :src="qrCode" class="qrCode"/>
         </q-card-section>
         <q-card-section>
           Купон №
           <q-avatar
+            size="sm"
             :color="isRegistered ? 'green-14' : 'grey-6'"
             text-color="white"
           >
             {{ coupon?.sequence_number }}
           </q-avatar>
-          <p style="width: 400px">
+          <p>
             Для регистрации купона в розыгрыше:
             <ol>
               <li>отсканируйте qr-код и перейдите по ссылке</li>
@@ -34,21 +35,32 @@ import { computed } from 'vue';
 import { QRCodeCanvas } from '@cheprasov/qrcode';
 import { useCouponsStore } from '../../model';
 
-const qrCanvas = new QRCodeCanvas('some value for QR code');
-const dataUrlWithQRCode = qrCanvas.toDataUrl();
-
 const props = defineProps<{ couponId: string }>();
 const couponsStore = useCouponsStore();
 
 const coupon = computed(() =>
   couponsStore.store.data?.find(({ id }) => id === props.couponId)
 );
+
+const qrCode = computed(() => {
+  const qrCanvas = new QRCodeCanvas(coupon.value?.id || '');
+  return qrCanvas.toDataUrl();
+})
+
 const isRegistered = computed(() => !!coupon.value?.registered_on);
 </script>
 
 <style scoped lang="scss">
-.qrcode {
-  width: 200px;
-  height: 200px;
+.qrCode {
+  width: 100px;
+  height: 100px;
+}
+.coupon {
+  font-size: 11px;
+
+  ol {
+    margin: 0;
+    padding: 0 0 0 20px;
+  }
 }
 </style>
