@@ -1,9 +1,9 @@
 <template>
   <div class="row justify-between q-mb-lg">
     {{ giveaway?.name }}
-    <q-btn :to="{ name: 'printCoupons', params: { id: id } }"
-      >Распечатать купоны</q-btn
-    >
+    <q-btn :to="{ name: 'printCoupons', params: { id: id } }">
+      Распечатать купоны
+    </q-btn>
     <q-space />
     <AddCouponsForm :giveawayId="id" />
   </div>

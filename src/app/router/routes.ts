@@ -54,6 +54,11 @@ const routes: RouteRecordRaw[] = [
   },
   // No Layout Pages
   {
+    name: 'couponRegistration',
+    path: '/coupon-registration/:id',
+    component: () => import('pages/CouponRegistration.vue'),
+  },
+  {
     name: 'login',
     path: '/login',
     component: () => import('pages/LoginPage.vue'),

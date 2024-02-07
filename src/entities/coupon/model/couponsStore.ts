@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { useCachedFunction } from 'src/shared/composables';
 import { useApiCouponsRead } from '../api';
 
-export const useCouponsStore = defineStore('user.coupons', () => {
+export const useCouponsStore = defineStore('coupons', () => {
   const { fetch } = useApiCouponsRead();
   const { execute: memoizedFetch, currentCacheResult: store } =
     useCachedFunction(fetch);
