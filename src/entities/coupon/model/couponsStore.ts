@@ -3,7 +3,7 @@ import { useCachedFunction } from 'src/shared/composables';
 import { useApiCouponsRead } from '../api';
 
 export const useCouponsStore = defineStore('coupons', () => {
-  const { fetch } = useApiCouponsRead();
+  const { fetch, error } = useApiCouponsRead();
   const { execute: memoizedFetch, currentCacheResult: store } =
     useCachedFunction(fetch);
 
@@ -13,6 +13,7 @@ export const useCouponsStore = defineStore('coupons', () => {
 
   return {
     store,
+    error,
 
     read,
   };

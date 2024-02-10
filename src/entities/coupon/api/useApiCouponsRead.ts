@@ -15,6 +15,7 @@ export const useApiCouponsRead = () => {
     isLoading: isQueryLoading,
     isRefetching,
     fetchQuery,
+    error,
   } = useApiQuery();
 
   const fetch = async ({ giveaway_id }: { giveaway_id: string }) => {
@@ -42,6 +43,7 @@ export const useApiCouponsRead = () => {
     data: data as Ref<ICoupon[] | null>,
     isLoading,
     isValid,
+    error,
 
     fetch,
     invalidate,

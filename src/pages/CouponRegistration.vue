@@ -2,20 +2,29 @@
   <q-layout view="hHh lpR fFf">
     <q-page-container>
       <q-page class="column items-center justify-center page">
-        <div class="column items-center">
-          Регистрация купона
-          <q-avatar
-            :color="isRegistered ? 'green-14' : 'grey-6'"
-            text-color="white"
-          >
-            {{ coupon?.sequence_number }}
-          </q-avatar>
-        </div>
-        <RegisterCouponBtn :id="id" v-if="!isRegistered" />
-        <div v-if="isRegistered" class="bg-light-green-3 q-pa-md">
-          Купон зарегистрирован
-        </div>
-        <q-inner-loading :showing="isLoading" />
+        <q-card>
+          <q-card-section>
+            <div class="bg-negative q-pa-md text-white" v-if="isError">
+              <div class="text-h6">Указан ошибочный идентификатор купона.</div>
+              Попробуйте отсканировать купон ещё раз.
+            </div>
+            <div class="column items-center" v-else>
+              <div class="text-h6">Регистрация купона</div>
+              <q-avatar
+                :color="isRegistered ? 'green-14' : 'grey-6'"
+                text-color="white"
+                class="q-mb-md"
+              >
+                {{ coupon?.sequence_number }}
+              </q-avatar>
+            </div>
+            <RegisterCouponBtn :id="id" v-if="!isRegistered && !isError" />
+            <div v-if="isRegistered" class="bg-light-green-3 q-pa-md">
+              Купон зарегистрирован
+            </div>
+            <q-inner-loading :showing="isLoading" />
+          </q-card-section>
+        </q-card>
       </q-page>
     </q-page-container>
   </q-layout>
@@ -34,6 +43,7 @@ const couponStore = useCouponStore();
 const coupon = computed(() => couponStore.store?.data);
 const isLoading = computed(() => couponStore.store.isLoading);
 const isRegistered = computed(() => !!couponStore.store.data?.is_registered);
+const isError = computed(() => !!couponStore.error);
 
 watch(
   () => id,

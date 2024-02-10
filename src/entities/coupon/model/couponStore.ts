@@ -3,7 +3,7 @@ import { useCachedFunction } from 'src/shared/composables';
 import { ICouponUpdateOwner, useApiCouponRead, useApiCouponUpdate } from '..';
 
 export const useCouponStore = defineStore('coupon', () => {
-  const { fetch } = useApiCouponRead();
+  const { fetch, error } = useApiCouponRead();
   const { updateCouponOwner, updateCouponRegistered } = useApiCouponUpdate();
   const {
     execute: memoizedFetch,
@@ -34,6 +34,7 @@ export const useCouponStore = defineStore('coupon', () => {
 
   return {
     store,
+    error,
 
     read,
     updateOwner,

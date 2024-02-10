@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-between q-mb-lg">
+  <div class="row justify-between items-center q-mb-lg">
     {{ giveaway?.name }}
     <q-btn :to="{ name: 'printCoupons', params: { id: id } }">
       Распечатать купоны
@@ -30,3 +30,10 @@ watch(
   { immediate: true }
 );
 </script>
+
+<style scoped lang="scss">
+.row {
+  gap: 16px;
+  padding: 20px;
+}
+</style>

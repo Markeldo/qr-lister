@@ -12,6 +12,7 @@ export const useApiCouponRead = () => {
     isRefetching,
     data: queryData,
     fetchQuery,
+    error,
   } = useApiQuery();
   const data = ref<ICoupon>();
 
@@ -41,6 +42,7 @@ export const useApiCouponRead = () => {
     data: data as Ref<ICoupon | null>,
     isLoading,
     isValid,
+    error,
 
     fetch,
     invalidate,
