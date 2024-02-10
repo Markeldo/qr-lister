@@ -14,10 +14,17 @@ export const useCouponsStore = defineStore('coupons', () => {
 
   const currentCouponsCount = computed(() => store.value.data?.length || 0);
 
+  const registeredCoupounsCount = computed(
+    () =>
+      store.value.data?.filter(({ is_registered }) => !!is_registered).length ||
+      0
+  );
+
   return {
     store,
     error,
     currentCouponsCount,
+    registeredCoupounsCount,
 
     read,
   };

@@ -1,6 +1,10 @@
 <template>
   <section class="grid-container">
-    <b>Список купонов</b>
+    <div class="flex">
+      <b>Список купонов</b>
+      <q-space />
+      <CouponsStats />
+    </div>
     <div class="grid">
       <q-btn
         flat
@@ -28,7 +32,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { computed } from 'vue';
-import { CouponCard, useCouponsStore } from 'src/entities/coupon';
+import { CouponCard, CouponsStats, useCouponsStore } from 'src/entities/coupon';
 
 const props = defineProps<{ giveawayId: string }>();
 const couponsStore = useCouponsStore();
