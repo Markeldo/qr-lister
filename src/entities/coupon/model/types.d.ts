@@ -5,5 +5,13 @@ export type INewCoupon = {
 
 export type ICoupon = INewCoupon & {
   id: string;
-  registered_on: string;
+  owner_name: string | null;
+  owner_phone: string | null;
+  winner: boolean;
+  is_registered: boolean;
 };
+
+export type ICouponUpdateOwner = Pick<
+  ICoupon,
+  'id' | 'owner_phone' | 'owner_name'
+>;

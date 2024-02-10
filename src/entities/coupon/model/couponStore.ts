@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
 import { useCachedFunction } from 'src/shared/composables';
-import { useApiCouponRead } from '..';
+import { ICouponUpdateOwner, useApiCouponRead, useApiCouponUpdate } from '..';
 
 export const useCouponStore = defineStore('coupon', () => {
   const { fetch } = useApiCouponRead();
+  const { updateCouponOwner, updateCouponRegistered } = useApiCouponUpdate();
   const {
     execute: memoizedFetch,
     currentCacheResult: store,
@@ -12,6 +13,16 @@ export const useCouponStore = defineStore('coupon', () => {
 
   const read = (id: string) => {
     return memoizedFetch(id);
+  };
+
+  const updateOwner = async (payload: ICouponUpdateOwner) => {
+    await updateCouponOwner(payload);
+    read(payload.id);
+  };
+
+  const updateIsRegistered = async (id: string) => {
+    await updateCouponRegistered(id);
+    read(id);
   };
 
   /*const update = async (formData: IEventUpdateData) => {
@@ -25,6 +36,8 @@ export const useCouponStore = defineStore('coupon', () => {
     store,
 
     read,
+    updateOwner,
+    updateIsRegistered,
     invalidateByTag,
   };
 });

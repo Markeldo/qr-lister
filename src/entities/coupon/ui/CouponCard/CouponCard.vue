@@ -18,11 +18,10 @@
             Для регистрации купона в розыгрыше:
             <ol>
               <li>отсканируйте qr-код и перейдите по ссылке</li>
-              <li>на открывшейся странице укажите свои данные Имя, Фамилия и номер телефон </li>
-              <li>подтвердите введённые данные</li>
-              <li>ждите розыгрыша в группе в контакте: https://vk.com/k.wolves</li>
+              <li>на открывшейся странице подтвердите участие нажатием на кнопку </li>
+              <li>отправьте фото с купоном в VK: https://vk.com/k.wolves</li>
             </ol>
-            ... или отправьте фотографию купона в группу "Карельских волков"
+            ... или просто отправьте фотографию купона в группу "Карельских волков"
           </p>
         </q-card-section>
       </q-card-section>
@@ -43,11 +42,11 @@ const coupon = computed(() =>
 );
 
 const qrCode = computed(() => {
-  const qrCanvas = new QRCodeCanvas(coupon.value?.id || '');
+  const qrCanvas = new QRCodeCanvas(`http://localhost:9000/#/coupon-registration/${coupon.value?.id || ''}`);
   return qrCanvas.toDataUrl();
 })
 
-const isRegistered = computed(() => !!coupon.value?.registered_on);
+const isRegistered = computed(() => !!coupon.value?.is_registered);
 </script>
 
 <style scoped lang="scss">

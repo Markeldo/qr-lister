@@ -17,7 +17,7 @@ const { id } = useRouteParams('id');
 const couponsStore = useCouponsStore();
 
 const coupons = computed(() =>
-  couponsStore.store.data?.filter(({ registered_on }) => !registered_on)
+  couponsStore.store.data?.filter(({ is_registered }) => !is_registered)
 );
 
 watch(
