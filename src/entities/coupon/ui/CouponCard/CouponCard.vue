@@ -42,7 +42,7 @@ const coupon = computed(() =>
 );
 
 const qrCode = computed(() => {
-  const qrCanvas = new QRCodeCanvas(`http://localhost:9000/#/coupon-registration/${coupon.value?.id || ''}`);
+  const qrCanvas = new QRCodeCanvas(`${process.env.QR_CODE_SITE}#/coupon-registration/${coupon.value?.id || ''}`);
   return qrCanvas.toDataUrl();
 })
 
