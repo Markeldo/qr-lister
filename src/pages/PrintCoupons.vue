@@ -36,8 +36,9 @@ watch(
   > * {
     max-width: 50%;
     &:not(:last-child) {
-      &:nth-child(8n) {
+      &:nth-child(16n) {
         page-break-after: always;
+        break-after: page;
       }
     }
   }

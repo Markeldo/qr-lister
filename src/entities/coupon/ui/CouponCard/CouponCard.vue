@@ -7,21 +7,21 @@
         </q-card-section>
         <q-card-section>
           Купон №
+          <span class="print-only">{{ coupon?.sequence_number }}</span>
           <q-avatar
             size="sm"
             :color="isRegistered ? 'green-14' : 'grey-6'"
             text-color="white"
+            class="print-hide"
           >
             {{ coupon?.sequence_number }}
           </q-avatar>
           <p>
-            Для регистрации купона в розыгрыше:
+            Для регистрации купона в розыгрыше воспользуйтесь одним из способов (или обоими сразу):
             <ol>
-              <li>отсканируйте qr-код и перейдите по ссылке</li>
-              <li>на открывшейся странице подтвердите участие нажатием на кнопку </li>
-              <li>отправьте фото с купоном в VK: https://vk.com/k.wolves</li>
+              <li>отсканируйте qr-код, перейдите по ссылке, нажмите кнопку "Зарегистрировать купон"</li>
+              <li>сфотографируйте купон и отправьте фото в группу VK "Карельские волки": https://vk.com/k.wolves</li>
             </ol>
-            ... или просто отправьте фотографию купона в группу "Карельских волков"
           </p>
         </q-card-section>
       </q-card-section>
@@ -43,6 +43,7 @@ const coupon = computed(() =>
 
 const qrCode = computed(() => {
   const qrCanvas = new QRCodeCanvas(`${process.env.QR_CODE_SITE}#/coupon-registration/${coupon.value?.id || ''}`);
+  // const qrCanvas = new QRCodeCanvas('https://vk.com/k.wolves');
   return qrCanvas.toDataUrl();
 })
 
@@ -61,5 +62,9 @@ const isRegistered = computed(() => !!coupon.value?.is_registered);
     margin: 0;
     padding: 0 0 0 20px;
   }
+}
+.print-only {
+  font-weight: bold;
+  font-size: 16px;
 }
 </style>

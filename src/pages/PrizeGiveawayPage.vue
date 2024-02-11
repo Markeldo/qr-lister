@@ -23,8 +23,9 @@ const prizeGiveawayStore = usePrizeGiveawayStore();
 const giveaway = computed(() => prizeGiveawayStore.store?.data);
 
 watch(
-  giveaway,
+  () => id,
   () => {
+    console.log('!!!');
     prizeGiveawayStore.read(id);
   },
   { immediate: true }

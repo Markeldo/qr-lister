@@ -11,7 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> QR Linker </q-toolbar-title>
+        <q-toolbar-title> QRize </q-toolbar-title>
 
         <div>{{ userStore.user.nickname }}</div>
       </q-toolbar>
