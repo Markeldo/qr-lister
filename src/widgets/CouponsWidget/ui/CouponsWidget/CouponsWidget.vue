@@ -5,7 +5,7 @@
       <q-space />
       <CouponsStats />
     </div>
-    <div class="grid">
+    <AppGrid>
       <q-btn
         flat
         dense
@@ -21,7 +21,7 @@
           {{ coupon.sequence_number }}
         </q-avatar>
       </q-btn>
-    </div>
+    </AppGrid>
   </section>
 
   <q-dialog v-model="openDialog" v-if="couponId">
@@ -33,6 +33,7 @@
 import { ref, watch } from 'vue';
 import { computed } from 'vue';
 import { CouponCard, CouponsStats, useCouponsStore } from 'src/entities/coupon';
+import { AppGrid } from 'src/shared/components';
 
 const props = defineProps<{ giveawayId: string }>();
 const couponsStore = useCouponsStore();
@@ -60,10 +61,5 @@ watch(
 .grid-container {
   display: table;
   margin: 0 auto;
-}
-.grid {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-gap: 8px;
 }
 </style>
