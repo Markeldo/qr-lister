@@ -1,6 +1,18 @@
 <template>
-  <div class="container">
+  <div class="container relative-position">
     <q-btn
+      style="position: absolute; left: 0"
+      class="q-mt-lg"
+      icon="arrow_back"
+      :to="{
+        name: 'prizeGiveaway',
+        params: { id: id },
+      }"
+    >
+      Назад
+    </q-btn>
+    <q-btn
+      color="primary"
       class="q-ma-lg"
       @click="onStartConduction"
       :class="{ hideStartConductionBtn: isStarted }"

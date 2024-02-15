@@ -1,11 +1,23 @@
 <template>
   <div class="row justify-between items-center q-mb-lg">
     {{ giveaway?.name }}
-    <q-btn :to="{ name: 'printCoupons', params: { id: id } }">
-      Распечатать купоны
-    </q-btn>
+
     <q-space />
     <AddCouponsForm :giveawayId="id" />
+    <q-btn
+      :to="{ name: 'printCoupons', params: { id: id } }"
+      icon="print"
+      title="Распечатать купоны"
+    />
+    <q-btn
+      color="primary"
+      :to="{
+        name: 'conducting',
+        params: { id: id },
+      }"
+    >
+      Разыграть
+    </q-btn>
   </div>
   <CouponsWidget :giveawayId="id" />
 </template>
