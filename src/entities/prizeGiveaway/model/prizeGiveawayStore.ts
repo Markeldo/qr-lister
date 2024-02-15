@@ -1,17 +1,30 @@
 import { defineStore } from 'pinia';
 import { useCachedFunction } from 'src/shared/composables';
-import { useApiPrizeGiveawayRead } from '..';
+import {
+  GiveawayStatuses,
+  useApiPrizeGiveawayRead,
+  useApiPrizeGiveawayUpdate,
+} from '..';
 
 export const usePrizeGiveawayStore = defineStore('prizeGiveaway', () => {
   const { fetch } = useApiPrizeGiveawayRead();
+  const { updatePrizeGiveawayStatus } = useApiPrizeGiveawayUpdate();
   const {
     execute: memoizedFetch,
     currentCacheResult: store,
     invalidateByTag,
   } = useCachedFunction(fetch, ['prizeGiveaway']);
 
-  const read = (eventId: string) => {
-    return memoizedFetch(eventId);
+  const read = (id: string) => {
+    return memoizedFetch(id);
+  };
+
+  const updateStatus = async (payload: {
+    id: string;
+    status: GiveawayStatuses;
+  }) => {
+    await updatePrizeGiveawayStatus(payload);
+    read(payload.id);
   };
 
   /*const update = async (formData: IEventUpdateData) => {
@@ -25,6 +38,7 @@ export const usePrizeGiveawayStore = defineStore('prizeGiveaway', () => {
     store,
 
     read,
+    updateStatus,
     invalidateByTag,
   };
 });
