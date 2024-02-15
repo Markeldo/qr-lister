@@ -15,7 +15,13 @@
         @click="openCouponCard(coupon.id)"
       >
         <q-avatar
-          :color="coupon.is_registered ? 'green-14' : 'grey-6'"
+          :color="
+            coupon.winner
+              ? 'amber-8'
+              : coupon.is_registered
+              ? 'green-14'
+              : 'grey-6'
+          "
           text-color="white"
         >
           {{ coupon.sequence_number }}

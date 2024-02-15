@@ -4,7 +4,8 @@ import { ICouponUpdateOwner, useApiCouponRead, useApiCouponUpdate } from '..';
 
 export const useCouponStore = defineStore('coupon', () => {
   const { fetch, error } = useApiCouponRead();
-  const { updateCouponOwner, updateCouponRegistered } = useApiCouponUpdate();
+  const { updateCouponOwner, updateCouponRegistered, setWinnerCoupon } =
+    useApiCouponUpdate();
   const {
     execute: memoizedFetch,
     currentCacheResult: store,
@@ -25,6 +26,10 @@ export const useCouponStore = defineStore('coupon', () => {
     read(id);
   };
 
+  const setWinner = async (id: string) => {
+    await setWinnerCoupon(id);
+  };
+
   /*const update = async (formData: IEventUpdateData) => {
     await updateEvent(formData);
     if (store.value.data?.id) {
@@ -40,5 +45,6 @@ export const useCouponStore = defineStore('coupon', () => {
     updateOwner,
     updateIsRegistered,
     invalidateByTag,
+    setWinner,
   };
 });

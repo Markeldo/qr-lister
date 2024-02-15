@@ -32,7 +32,7 @@ import {
 } from 'src/features/DeletePrizeGiveaway';
 import { useUsersPrizeGiveawayStore } from 'src/entities/prizeGiveaway';
 import { useUserStore } from 'src/entities/user';
-console.log('nk@mt-tools.ru'.toUpperCase());
+
 const userStore = useUserStore();
 const useGiveawayStore = useUsersPrizeGiveawayStore();
 

@@ -25,7 +25,6 @@ const giveaway = computed(() => prizeGiveawayStore.store?.data);
 watch(
   () => id,
   () => {
-    console.log('!!!');
     prizeGiveawayStore.read(id);
   },
   { immediate: true }

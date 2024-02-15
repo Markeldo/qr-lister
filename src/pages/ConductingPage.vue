@@ -4,10 +4,15 @@
       class="q-ma-lg"
       @click="onStartConduction"
       :class="{ hideStartConductionBtn: isStarted }"
-      >Начать розыгрыш</q-btn
     >
-    <div class="stopContainer" :class="{ visible: !!activeId && !winnerId }">
-      <q-btn class="q-ma-lg" @click="onGetWinner">Определить победителя</q-btn>
+      Начать розыгрыш
+    </q-btn>
+    <div class="relative-position">
+      <div class="stopContainer" :class="{ visible: !!activeId && !winnerId }">
+        <q-btn class="q-ma-lg" @click="onGetWinner">
+          Определить победителя
+        </q-btn>
+      </div>
     </div>
     <section
       class="relative-position"
@@ -30,9 +35,7 @@
       </AppGrid>
     </section>
     <div class="saveResultContainer" :class="{ visible: !!winnerId }">
-      <q-btn class="bg-amber-8 text-white q-mb-sm" size="large">
-        Сохранить результат
-      </q-btn>
+      <SetWinnerBtn v-if="winnerId" :id="winnerId" @winnerIsSet="onWinnerSet" />
       <div>... и завершить розыгрыш</div>
       <div>или</div>
       <q-btn @click="onReset" class="bg-white q-mt-sm">
@@ -43,10 +46,13 @@
 </template>
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { SetWinnerBtn } from 'src/features/SetWinner';
 import { useCouponsStore } from 'src/entities/coupon';
 import { AppGrid } from 'src/shared/components';
 import { useRouteParams } from 'src/shared/composables';
 
+const router = useRouter();
 const isStarted = ref(false);
 const interval = ref<NodeJS.Timeout | null>(null);
 const activeId = ref<string>();
@@ -104,6 +110,14 @@ const onReset = () => {
   if (interval.value) {
     clearInterval(interval.value);
   }
+};
+
+const onWinnerSet = async () => {
+  await couponsStore.read({ giveaway_id: id });
+  router.push({
+    name: 'prizeGiveaway',
+    params: { id: id },
+  });
 };
 </script>
 

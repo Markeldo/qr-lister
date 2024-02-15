@@ -37,6 +37,15 @@ export const useApiCouponUpdate = () => {
     await fetchQuery(query, { checkDataExistance: true });
   };
 
+  const setWinnerCoupon = async (id: string) => {
+    const query = supabase
+      .from('coupon')
+      .update({ winner: true })
+      .eq('id', id)
+      .select();
+    await fetchQuery(query, { checkDataExistance: true });
+  };
+
   watch(isQueryLoading, () => {
     if (isLoading.value != isQueryLoading.value) {
       isLoading.value = isQueryLoading.value;
@@ -47,6 +56,7 @@ export const useApiCouponUpdate = () => {
     error,
     isLoading,
 
+    setWinnerCoupon,
     updateCouponOwner,
     updateCouponRegistered,
   };
