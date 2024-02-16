@@ -31,18 +31,21 @@ import { CouponsWidget } from 'src/widgets/CouponsWidget';
 import { AddCouponsForm } from 'src/features/AddCoupons';
 import { ChangeStatus } from 'src/features/ChangeGiveawayStatus';
 import { usePrizeGiveawayStore } from 'src/entities/prizeGiveaway';
-import { useRouteParams } from 'src/shared/composables';
+import { useParams, useRouteParams } from 'src/shared/composables';
 
-const { id } = useRouteParams('id');
+const { params } = useParams('id');
 const prizeGiveawayStore = usePrizeGiveawayStore();
 
+const id = computed(() => params.value?.id || '');
 const giveaway = computed(() => prizeGiveawayStore.store?.data);
 const isRefetching = computed(() => prizeGiveawayStore.store.isRefetching);
 
 watch(
-  () => id,
+  params,
   () => {
-    prizeGiveawayStore.read(id);
+    if (params.value) {
+      prizeGiveawayStore.read(params.value?.id);
+    }
   },
   { immediate: true }
 );

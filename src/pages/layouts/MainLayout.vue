@@ -24,7 +24,18 @@
       class="print-hide"
     >
       <q-list>
-        <q-item-label header> Essential Links </q-item-label>
+        <q-item-label header> Ваш список розыгрышей </q-item-label>
+        <q-item
+          clickable
+          v-ripple
+          v-for="giveaway in giveaways"
+          :key="giveaway.id"
+          exact
+          :to="{ name: 'prizeGiveaway', params: { id: giveaway.id } }"
+          class="item"
+        >
+          {{ giveaway.name }}
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -35,14 +46,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { useUsersPrizeGiveawayStore } from 'src/entities/prizeGiveaway';
 import { useUserStore } from 'src/entities/user';
 
 const userStore = useUserStore();
+const useGiveawayStore = useUsersPrizeGiveawayStore();
+
+const giveaways = computed(() => {
+  return useGiveawayStore.store?.data || [];
+});
 
 const leftDrawerOpen = ref(false);
+
+onMounted(() => {
+  if (giveaways.value.length < 1) {
+    useGiveawayStore.read({ user_id: userStore.user.id });
+  }
+});
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>
+
+<style scoped lang="scss">
+.item {
+  min-height: 0;
+}
+</style>

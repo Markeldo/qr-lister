@@ -14,6 +14,7 @@ export const useRouteParams = <T extends defaultPropsType>(
   const route = useRoute();
   const paramsToReturn =
     awaitingParams.length > 0 ? awaitingParams : [...defaultProps];
+  console.log(paramsToReturn);
 
   return paramsToReturn.reduce(
     (result, item) => ({ ...result, [item]: route.params[item] }),
