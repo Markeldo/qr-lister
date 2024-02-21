@@ -25,8 +25,12 @@ declare module '@cheprasov/qrcode' {
     ecl?: 'L' | 'M' | 'Q' | 'H';
   }
 
+  type QRCodeCanvasConfig = {
+    size: number;
+  };
+
   export class QRCodeCanvas {
-    constructor(options: string);
+    constructor(options: string, config?: QRCodeCanvasConfig);
     toDataUrl(): string;
     toBuffer(): Buffer;
   }

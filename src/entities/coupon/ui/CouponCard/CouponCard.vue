@@ -42,7 +42,9 @@ const coupon = computed(() =>
 );
 
 const qrCode = computed(() => {
-  const qrCanvas = new QRCodeCanvas(`${process.env.QR_CODE_SITE}#/coupon-registration/${coupon.value?.id || ''}`);
+  const qrCanvas = new QRCodeCanvas(`${process.env.QR_CODE_SITE}#/coupon-registration/${coupon.value?.id || ''}`, {
+    size: 100
+  });
   // const qrCanvas = new QRCodeCanvas('https://vk.com/k.wolves');
   return qrCanvas.toDataUrl();
 })
