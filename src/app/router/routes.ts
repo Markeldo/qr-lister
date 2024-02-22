@@ -51,6 +51,15 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
+        name: 'prizeGiveawaySettings',
+        path: 'prize-giveaway/:id/settings',
+        component: () => import('pages/prizeGiveawaySettings.vue'),
+        meta: {
+          scopes: ['IS_LOGGED_IN'],
+          title: 'Редактирование розыгрыша',
+        },
+      },
+      {
         name: 'conducting',
         path: 'prize-giveaway/:id/conducting',
         component: () => import('pages/ConductingPage.vue'),

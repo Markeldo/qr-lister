@@ -8,7 +8,8 @@ import {
 
 export const usePrizeGiveawayStore = defineStore('prizeGiveaway', () => {
   const { fetch } = useApiPrizeGiveawayRead();
-  const { updatePrizeGiveawayStatus } = useApiPrizeGiveawayUpdate();
+  const { updatePrizeGiveawayStatus, updatePrizeGiveaway } =
+    useApiPrizeGiveawayUpdate();
   const {
     execute: memoizedFetch,
     currentCacheResult: store,
@@ -27,6 +28,11 @@ export const usePrizeGiveawayStore = defineStore('prizeGiveaway', () => {
     read(payload.id);
   };
 
+  const update = async (payload: { id: string; name: string }) => {
+    await updatePrizeGiveaway(payload);
+    read(payload.id);
+  };
+
   /*const update = async (formData: IEventUpdateData) => {
     await updateEvent(formData);
     if (store.value.data?.id) {
@@ -38,6 +44,7 @@ export const usePrizeGiveawayStore = defineStore('prizeGiveaway', () => {
     store,
 
     read,
+    update,
     updateStatus,
     invalidateByTag,
   };

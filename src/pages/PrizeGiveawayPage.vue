@@ -6,7 +6,7 @@
     <AddCouponsForm v-if="giveaway?.status === 'active'" :giveawayId="id" />
     <q-btn
       v-if="giveaway?.status === 'active'"
-      :to="{ name: 'printCoupons', params: { id: id } }"
+      :to="{ name: 'printCoupons', params: { id } }"
       icon="print"
       title="Распечатать купоны"
     />
@@ -20,6 +20,10 @@
     >
       Разыграть
     </q-btn>
+    <q-btn
+      icon="settings"
+      :to="{ name: 'prizeGiveawaySettings', params: { id } }"
+    />
     <q-inner-loading :showing="isRefetching" />
   </div>
   <CouponsWidget :giveawayId="id" />

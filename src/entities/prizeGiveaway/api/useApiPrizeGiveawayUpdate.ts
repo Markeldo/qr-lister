@@ -8,6 +8,21 @@ const isLoading = ref(false);
 export const useApiPrizeGiveawayUpdate = () => {
   const { error, isLoading: isQueryLoading, fetchQuery } = useApiQuery();
 
+  const updatePrizeGiveaway = async ({
+    id,
+    ...data
+  }: {
+    id: string;
+    name: string;
+  }) => {
+    const query = supabase
+      .from('prize_giveaway')
+      .update(data)
+      .eq('id', id)
+      .select();
+    await fetchQuery(query, { checkDataExistance: true });
+  };
+
   const updatePrizeGiveawayStatus = async ({
     id,
     ...data
@@ -34,5 +49,6 @@ export const useApiPrizeGiveawayUpdate = () => {
     isLoading,
 
     updatePrizeGiveawayStatus,
+    updatePrizeGiveaway,
   };
 };
