@@ -11,17 +11,18 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue';
 import { CouponCard, useCouponsStore } from 'src/entities/coupon';
-import { useRouteParams } from 'src/shared/composables';
+import { useParams } from 'src/shared/composables';
 
-const { id } = useRouteParams('id');
+const { params } = useParams('id');
 const couponsStore = useCouponsStore();
 
+const id = computed(() => params.value?.id || '');
 const coupons = computed(() =>
   couponsStore.store.data?.filter(({ is_registered }) => !is_registered)
 );
 
 watch(
-  () => id,
+  id,
   (giveawayId) => {
     couponsStore.read({ giveaway_id: giveawayId });
   },
