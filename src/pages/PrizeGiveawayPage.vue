@@ -31,7 +31,7 @@ import { CouponsWidget } from 'src/widgets/CouponsWidget';
 import { AddCouponsForm } from 'src/features/AddCoupons';
 import { ChangeStatus } from 'src/features/ChangeGiveawayStatus';
 import { usePrizeGiveawayStore } from 'src/entities/prizeGiveaway';
-import { useParams, useRouteParams } from 'src/shared/composables';
+import { useParams } from 'src/shared/composables';
 
 const { params } = useParams('id');
 const prizeGiveawayStore = usePrizeGiveawayStore();
@@ -41,10 +41,10 @@ const giveaway = computed(() => prizeGiveawayStore.store?.data);
 const isRefetching = computed(() => prizeGiveawayStore.store.isRefetching);
 
 watch(
-  params,
-  () => {
-    if (params.value) {
-      prizeGiveawayStore.read(params.value?.id);
+  id,
+  (id) => {
+    if (id) {
+      prizeGiveawayStore.read(id);
     }
   },
   { immediate: true }

@@ -37,12 +37,13 @@ import { computed } from 'vue';
 import { RegisterCouponBtn } from 'src/features/RegisterCoupon';
 import { useCouponStore } from 'src/entities/coupon';
 import { usePrizeGiveawayStore } from 'src/entities/prizeGiveaway';
-import { useRouteParams } from 'src/shared/composables';
+import { useParams } from 'src/shared/composables';
 
-const { id } = useRouteParams('id');
+const { params } = useParams('id');
 const couponStore = useCouponStore();
 const giveawayStore = usePrizeGiveawayStore();
 
+const id = computed(() => params.value?.id || '');
 const coupon = computed(() => couponStore.store?.data);
 const isLoading = computed(() => couponStore.store.isLoading);
 const isRegistered = computed(() => !!couponStore.store.data?.is_registered);
@@ -64,8 +65,8 @@ const error = computed(() => {
 const giveawayId = computed(() => coupon.value?.giveaway_id);
 
 watch(
-  () => id,
-  () => {
+  id,
+  (id) => {
     couponStore.read(id);
   },
   {

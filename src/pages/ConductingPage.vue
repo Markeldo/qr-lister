@@ -62,15 +62,18 @@ import { useRouter } from 'vue-router';
 import { SetWinnerBtn } from 'src/features/SetWinner';
 import { useCouponsStore } from 'src/entities/coupon';
 import { AppGrid } from 'src/shared/components';
-import { useRouteParams } from 'src/shared/composables';
+import { useParams } from 'src/shared/composables';
 
 const router = useRouter();
 const isStarted = ref(false);
 const interval = ref<NodeJS.Timeout | null>(null);
 const activeId = ref<string>();
 const winnerId = ref<string>();
-const { id } = useRouteParams('id');
 const couponsStore = useCouponsStore();
+
+const { params } = useParams('id');
+
+const id = computed(() => params.value?.id || '');
 
 const registeredCoupons = computed(() =>
   couponsStore.store.data?.filter(({ is_registered }) => is_registered)
@@ -79,7 +82,7 @@ const registeredCoupons = computed(() =>
 const couponIds = computed(() => registeredCoupons.value?.map(({ id }) => id));
 
 watch(
-  () => id,
+  id,
   (giveawayId) => {
     couponsStore.read({ giveaway_id: giveawayId });
   },
@@ -125,10 +128,10 @@ const onReset = () => {
 };
 
 const onWinnerSet = async () => {
-  await couponsStore.read({ giveaway_id: id });
+  await couponsStore.read({ giveaway_id: id.value });
   router.push({
     name: 'prizeGiveaway',
-    params: { id: id },
+    params: { id: id.value },
   });
 };
 </script>
