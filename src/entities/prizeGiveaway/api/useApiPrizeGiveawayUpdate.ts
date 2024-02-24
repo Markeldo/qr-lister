@@ -10,14 +10,16 @@ export const useApiPrizeGiveawayUpdate = () => {
 
   const updatePrizeGiveaway = async ({
     id,
+    logo,
     ...data
   }: {
     id: string;
     name: string;
+    logo?: string;
   }) => {
     const query = supabase
       .from('prize_giveaway')
-      .update(data)
+      .update({ ...data, logo: logo ? logo : null })
       .eq('id', id)
       .select();
     await fetchQuery(query, { checkDataExistance: true });

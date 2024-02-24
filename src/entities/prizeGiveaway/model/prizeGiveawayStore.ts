@@ -28,7 +28,11 @@ export const usePrizeGiveawayStore = defineStore('prizeGiveaway', () => {
     read(payload.id);
   };
 
-  const update = async (payload: { id: string; name: string }) => {
+  const update = async (payload: {
+    id: string;
+    name: string;
+    logo?: string;
+  }) => {
     await updatePrizeGiveaway(payload);
     read(payload.id);
   };

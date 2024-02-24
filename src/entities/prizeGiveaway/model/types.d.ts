@@ -16,4 +16,5 @@ export type GiveawayStatusOption = {
 export type IPrizeGiveaway = INewPrizeGiveaway & {
   id: string;
   status: GiveawayStatuses;
+  logo?: string;
 };
