@@ -14,7 +14,7 @@
     <div class="row items-center q-gutter-sm no-wrap">
       <q-icon
         v-if="!formData.logo"
-        size="100px"
+        size="32px"
         name="hide_image"
         class="noAvatarIcon"
       />

@@ -34,16 +34,35 @@ import { computed } from 'vue';
 import { QRCodeCanvas } from '@cheprasov/qrcode';
 import { useCouponsStore } from '../../model';
 
-const props = defineProps<{ couponId: string }>();
+const props = defineProps<{ couponId: string, logo?: string }>();
 const couponsStore = useCouponsStore();
 
 const coupon = computed(() =>
   couponsStore.store.data?.find(({ id }) => id === props.couponId)
 );
+const logoObject = computed(() => {
+  if(!props.logo) {
+    return {}
+  }
+  const img = new Image()
+  img.src = props.logo
+  return {
+    image: {
+        source: img,
+        width: 10,
+        height: 10,
+        x: 'center',
+        y: 'center',
+      }
+  }
+})
 
 const qrCode = computed(() => {
+  console.log(logoObject.value)
   const qrCanvas = new QRCodeCanvas(`${process.env.QR_CODE_SITE}#/coupon-registration/${coupon.value?.id || ''}`, {
-    size: 100
+    size: 1000,
+    level: 'Q',
+    ...logoObject.value
   });
   // const qrCanvas = new QRCodeCanvas('https://vk.com/k.wolves');
   return qrCanvas.toDataUrl();

@@ -31,7 +31,7 @@
   </section>
 
   <q-dialog v-model="openDialog" v-if="couponId">
-    <CouponCard :couponId="couponId" />
+    <CouponCard :couponId="couponId" :logo="logo" />
   </q-dialog>
 </template>
 
@@ -39,15 +39,18 @@
 import { ref, watch } from 'vue';
 import { computed } from 'vue';
 import { CouponCard, CouponsStats, useCouponsStore } from 'src/entities/coupon';
+import { usePrizeGiveawayStore } from 'src/entities/prizeGiveaway';
 import { AppGrid } from 'src/shared/components';
 
 const props = defineProps<{ giveawayId: string }>();
 const couponsStore = useCouponsStore();
+const giveawayStore = usePrizeGiveawayStore();
 
 const openDialog = ref(false);
 const couponId = ref<string | undefined>(undefined);
 
 const coupons = computed(() => couponsStore.store.data);
+const logo = computed(() => giveawayStore.store.data?.logo);
 
 const openCouponCard = (id: string) => {
   openDialog.value = true;

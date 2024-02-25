@@ -84,7 +84,7 @@ const onCropConfirm = () => {
 };
 
 function resizedataURL(datas: string) {
-  const wantedSize = 150;
+  const wantedSize = 32;
   // We create an image to receive the Data URI
   var img = document.createElement('img');
 
@@ -145,4 +145,3 @@ const onImageSelected = () => {
   max-height: calc(100vh - 120px);
 }
 </style>
-

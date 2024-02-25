@@ -27,6 +27,8 @@ declare module '@cheprasov/qrcode' {
 
   type QRCodeCanvasConfig = {
     size: number;
+    level: string;
+    image?: Record<string, string | number | HTMLImageElement>;
   };
 
   export class QRCodeCanvas {
