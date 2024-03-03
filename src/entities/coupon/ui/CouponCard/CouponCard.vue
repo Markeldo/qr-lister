@@ -58,7 +58,6 @@ const logoObject = computed(() => {
 })
 
 const qrCode = computed(() => {
-  console.log(logoObject.value)
   const qrCanvas = new QRCodeCanvas(`${process.env.QR_CODE_SITE}#/coupon-registration/${coupon.value?.id || ''}`, {
     size: 1000,
     level: 'Q',

@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR fFf">
     <q-page-container>
       <q-page class="column items-center justify-center page">
-        <q-card>
+        <q-card class="registrationCard">
           <q-card-section>
             <div class="bg-negative q-pa-md text-white" v-if="error">
               <div class="text-h6">{{ error.title }}</div>
@@ -18,8 +18,8 @@
               >
                 {{ coupon?.sequence_number }}
               </q-avatar>
+              <RegisterCouponBtn :id="id" v-if="!isRegistered" />
             </div>
-            <RegisterCouponBtn :id="id" v-if="!isRegistered && !error" />
             <div v-if="isRegistered" class="bg-light-green-3 q-pa-md">
               Купон зарегистрирован
             </div>
@@ -54,7 +54,10 @@ const error = computed(() => {
       description: 'Попробуйте отсканировать купон ещё раз.',
     };
   }
-  if (giveawayStore.store?.data?.status !== 'active') {
+  if (
+    giveawayStore.store?.data &&
+    giveawayStore.store?.data?.status !== 'active'
+  ) {
     return {
       title: 'Ошибка регистрации купона',
       description: 'Регистрация купонов завершена. Так бывает, Вы не успели.',
@@ -87,5 +90,15 @@ watch(giveawayId, (giveaway_id) => {
   .column {
     gap: 8px;
   }
+}
+
+.registrationCard {
+  max-width: 500px;
+  margin: 16px;
+}
+
+.text-h4,
+.text-h6 {
+  text-align: center;
 }
 </style>
