@@ -8,6 +8,7 @@ export type Scopes =
   | 'CAN_VIEW_TEAM'
   | 'CAN_MANAGE_TEAM'
   | 'IS_OWNER'
+  | 'IS_GIVEAWAY_ACTIVE'
   | 'UNREACHABLE_ROUTE';
 
 export type ScopesArrayType = {
@@ -34,4 +35,3 @@ export type IScopesFunction<T = CombinedPayload> = (
 export type IAllScopesFunctions<T = CombinedPayload> = {
   [index in Scopes]?: IScopesFunction<T>;
 };
-

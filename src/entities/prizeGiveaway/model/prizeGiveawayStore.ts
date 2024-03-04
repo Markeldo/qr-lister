@@ -48,6 +48,7 @@ export const usePrizeGiveawayStore = defineStore('prizeGiveaway', () => {
     store,
 
     read,
+    fetch,
     update,
     updateStatus,
     invalidateByTag,

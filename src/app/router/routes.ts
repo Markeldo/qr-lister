@@ -4,6 +4,7 @@ import { Scopes } from 'src/entities/userScope';
 declare module 'vue-router' {
   interface RouteMeta {
     scopes?: Scopes[];
+    scopeMode?: 'all' | 'some';
     title?: string;
   }
 }
@@ -46,8 +47,10 @@ const routes: RouteRecordRaw[] = [
         path: 'prize-giveaway/:id/print-coupons',
         component: () => import('pages/PrintCoupons.vue'),
         meta: {
-          scopes: ['IS_LOGGED_IN'],
+          scopes: ['IS_LOGGED_IN', 'IS_GIVEAWAY_ACTIVE'],
+          scopeMode: 'all',
           title: 'Просмотр розыгрыша',
+          redirectTo: { name: 'main' },
         },
       },
       {
