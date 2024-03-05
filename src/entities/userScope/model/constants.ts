@@ -1,4 +1,9 @@
-import { hasEmptyProfile, isGiveawayActive, isLoggedIn } from '../lib';
+import {
+  hasEmptyProfile,
+  isGiveawayActive,
+  isGiveawayPrepared,
+  isLoggedIn,
+} from '../lib';
 import { IAllScopesFunctions } from '.';
 
 export const allScopesFunctions: IAllScopesFunctions = {
@@ -9,4 +14,5 @@ export const allScopesFunctions: IAllScopesFunctions = {
     UNREACHABLE_ROUTE: false,
   }),
   IS_GIVEAWAY_ACTIVE: isGiveawayActive,
+  IS_GIVEAWAY_PREPARED: isGiveawayPrepared,
 };

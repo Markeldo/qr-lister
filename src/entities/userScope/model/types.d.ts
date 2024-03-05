@@ -9,6 +9,7 @@ export type Scopes =
   | 'CAN_MANAGE_TEAM'
   | 'IS_OWNER'
   | 'IS_GIVEAWAY_ACTIVE'
+  | 'IS_GIVEAWAY_PREPARED'
   | 'UNREACHABLE_ROUTE';
 
 export type ScopesArrayType = {
